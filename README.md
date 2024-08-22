@@ -5,7 +5,7 @@
 This repo was created to test out, document, and benchmark the following Summer '24 new features designed to speed up the package dev lifecycle.
 
 -   [Scratch Org Snapshot Release Note](https://help.salesforce.com/s/articleView?id=release-notes.rn_dev_environments_snapshots_ga.htm&release=250&type=5)
--   [Async Validation Release Note](#https://help.salesforce.com/s/articleView?id=release-notes.rn_packaging_async_validation.htm&release=250&type=5)
+-   [Async Validation Release Note](https://help.salesforce.com/s/articleView?id=release-notes.rn_packaging_async_validation.htm&release=250&type=5)
 -   [Scratch Org Install Skip Handler Release Note](https://help.salesforce.com/s/articleView?id=release-notes.rn_packaging_skip_handler.htm&release=250&type=5)
 
 > **Note**
