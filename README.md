@@ -52,23 +52,23 @@ Steps to create your own packages using this repo's two directories:
 
 -   Create the "base" package
     ```
-sf package create --name "DreamhouseBaseUnlockedPkg" --path force-app --package-type Unlocked
+    sf package create --name "DreamhouseBaseUnlockedPkg" --path force-app --package-type Unlocked
     ```
 
 -   Create a package version for the "base" package
     ```
-sf package version create --package DreamhouseBaseUnlockedPkg --installation-key-bypass --code-coverage 
---definition-file config/project-scratch-def.json --wait 10
+    sf package version create --package DreamhouseBaseUnlockedPkg --installation-key-bypass --code-coverage 
+    --definition-file config/project-scratch-def.json --wait 10
     ```
 
 -   Create the "extension" package
     ```
-sf package create --name "DreamhouseExtensionUnlockedPkg" --path dreamhouse-extension --package-type Unlocked
+    sf package create --name "DreamhouseExtensionUnlockedPkg" --path dreamhouse-extension --package-type Unlocked
     ```
 
--   Create a package version for the "extension" package
+-   Create a package version for the "extension" package (note: you could use a snapshot to do this, the next section explains how)
     ```
-sf package version create --package DreamhouseExtensionUnlockedPkg --installation-key-bypass --code-coverage --definition-file config/project-scratch-def.json --wait 10
+    sf package version create --package DreamhouseExtensionUnlockedPkg --installation-key-bypass --code-coverage --definition-file config/project-scratch-def.json --wait 10
     ```
 
 ### Creating and Using Snapshots
