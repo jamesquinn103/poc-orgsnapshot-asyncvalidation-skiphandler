@@ -1,18 +1,34 @@
 {
   "packageDirectories": [
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "force-app",
       "default": true,
-      "package": "DreamhouseLWC",
-      "versionName": "Summer '24",
-      "versionNumber": "61.0.0.NEXT"
+      "package": "DreamhouseBaseUnlockedPkg",
+      "versionDescription": ""
+    },
+    {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "path": "dreamhouse-extension",
+      "default": false,
+      "package": "DreamhouseExtensionUnlockedPkg",
+      "versionDescription": "",
+      "dependencies": [
+        {
+          "package": "DreamhouseBaseUnlockedPkg@0.1.0-1"
+        }
+      ]
     }
   ],
   "namespace": "",
   "sourceApiVersion": "61.0",
   "packageAliases": {
-    "DreamhouseLWC": "0Ho3h000000PBghCAG",
-    "DreamhouseLWC@60.0.0-3": "04t3h000001RcBxAAK",
-    "DreamhouseLWC@61.0.0-2": "04tKY000000LOv6YAG"
+    "DreamhouseBaseUnlockedPkg": "0Ho8c000000XZQVCA4",
+    "DreamhouseBaseUnlockedPkg@0.1.0-1": "04t8c000000qa8PAAQ",
+    "DreamhouseExtensionUnlockedPkg": "0Ho8c000000XZQaCAO",
+    "DreamhouseExtensionUnlockedPkg@0.1.0-1": "04t8c000000qa8UAAQ",
+    "DreamhouseExtensionUnlockedPkg@0.1.0-2": "04t8c000000qa8ZAAQ"
   }
 }

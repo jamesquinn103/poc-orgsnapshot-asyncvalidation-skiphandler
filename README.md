@@ -1,4 +1,94 @@
-# Dreamhouse Lightning Web Components Sample Application
+# Copy of Dreamhouse Sample App - Used to Test Org Snapshot, Async Validation, & Install Skip Handlers
+
+[Link to actively maintained Dreamhouse repo](https://github.com/trailheadapps/dreamhouse-lwc)
+
+This repo was created to test out, document, and benchmark the following Summer '24 new features designed to speed up the package dev lifecycle.
+
+-   [Scratch Org Snapshot Release Note](https://help.salesforce.com/s/articleView?id=release-notes.rn_dev_environments_snapshots_ga.htm&release=250&type=5)
+-   [Async Validation Release Note](#https://help.salesforce.com/s/articleView?id=release-notes.rn_packaging_async_validation.htm&release=250&type=5)
+-   [Scratch Org Install Skip Handler Release Note](https://help.salesforce.com/s/articleView?id=release-notes.rn_packaging_skip_handler.htm&release=250&type=5)
+
+> **Note**
+> This repo uses non-namespaced unlocked packages. If you wish to use managed 2GP packages instead, you would need to add a namespace, remove any metadata types that do not support managed 2GP, and do a bit of troubleshooting when creating a package version
+
+---
+# How to Use this Repo to Test these Three Features
+
+## Prerequisites
+
+-   Set up your environment. Follow the steps here: [Get Started with Scratch Org Snapshots](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_snapshots_get_started.htm) 
+
+-   Clone this repository to create a local copy on your machine:
+
+    ```
+    git clone <<REPO_URL_GOES_HERE>>
+    cd dreamhouse-lwc
+    ```
+
+## Scratch Org Snapshot
+
+Scratch Org Snapshot is a huge timesaver when working with **packages that depend on other packages**, sometimes called "extension" packages.
+
+This repo provides two directories and packages:
+
+-   DreamhouseBaseUnlockedPkg, a "base" package, made of the contents of the "force-app" folder
+-   DreamhouseExtensionUnlockedPkg, an "extension" package, made of the contents of the "dreamhouse-extension" folder
+
+There are two main ways to work with these directories and packages:
+
+1.   Reference the existing package version IDs directly
+
+     - These can be found in the sfdx-project.json file. They begin with '04t'
+     - Use this option to create new, separate packages that have dependencies on these existing package versions, install these existing package versions, create and use snapshots that have them pre-installed, etc.
+
+2.   Package the contents of these directories yourself
+
+     - Ignore the existing packages, package version IDs, etc.
+     - In your local copy of this repo, use the below CLI commands to create your own packages
+     - Use this option if you want to create new package versions from these directories, promote these package versions, upgrade package version installations, create these package versions using snapshots, try this with 2GP managed packages, etc.
+
+
+Steps to create your own packages using this repo's two directories:
+
+-   Create the "base" package
+    ```
+sf package create --name "DreamhouseBaseUnlockedPkg" --path force-app --package-type Unlocked
+    ```
+
+-   Create a package version for the "base" package
+    ```
+sf package version create --package DreamhouseBaseUnlockedPkg --installation-key-bypass --code-coverage 
+--definition-file config/project-scratch-def.json --wait 10
+    ```
+
+-   Create the "extension" package
+    ```
+sf package create --name "DreamhouseExtensionUnlockedPkg" --path dreamhouse-extension --package-type Unlocked
+    ```
+
+-   Create a package version for the "extension" package
+    ```
+sf package version create --package DreamhouseExtensionUnlockedPkg --installation-key-bypass --code-coverage --definition-file config/project-scratch-def.json --wait 10
+    ```
+
+### Creating and Using Snapshots
+
+-   Create a non-namespaced scratch org - see [Create Scratch Orgs](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_scratch_orgs_create.htm)
+-   Optionally, install one or more packages in this scratch org - see [Install Packages with the CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_unlocked_pkg_install_pkg_cli.htm)
+-   Create a snapshot - see [Create a Scratch Org Snapshot](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_snapshots_create.htm)
+-   Create a scratch org using the snapshot - see [Create a Scratch Org Based on a Snapshot](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_snapshots_create_scratch_org.htm)
+
+The scratch org created from the snapshot will carry over the installed packages, features, limits, licenses, metadata, and data from the scratch org that was used to create the snapshot. In addition, it [can be namespaced](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_snapshots_namespace_limitations.htm).
+
+TODO: run experiment to compare time taken to create a scratch org from a snapshot that comes with the dreamhouse base package version pre-installed vs. time taken to create a scratch org normally, and then install the dreamhouse base package version, to arrive at the same end state. This is admittedly a naive experiment that misses much of the value prop of snapshots (unpackaged metadata config - avoiding scripting this, if the metadata type even supports MDAPI, and scripting data loads and waiting for them to run).
+
+## Async Validation
+
+TODO: run experiment to compare creating the dreamhouse base package version using full validation vs. async validation vs. skip validation. Async validation is most useful for creating package versions that have a lot of Apex tests that take a long time to run. It benefits both base and extension packages.
+
+## Scratch Org Install Skip Handler
+
+TODO: run experiment to compare installing the dreamhouse base package version with and without the skip handler. 
 
 [![CI Workflow](https://github.com/trailheadapps/dreamhouse-lwc/workflows/CI/badge.svg)](https://github.com/trailheadapps/dreamhouse-lwc/actions?query=workflow%3ACI) [![Packaging Workflow](https://github.com/trailheadapps/dreamhouse-lwc/workflows/Packaging/badge.svg)](https://github.com/trailheadapps/dreamhouse-lwc/actions?query=workflow%3APackaging) [![codecov](https://codecov.io/gh/trailheadapps/dreamhouse-lwc/branch/main/graph/badge.svg)](https://codecov.io/gh/trailheadapps/dreamhouse-lwc)
 
